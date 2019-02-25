@@ -54,11 +54,15 @@ class Config():
         self.embeddings = (get_trimmed_glove_vectors(self.filename_trimmed)
                 if self.use_pretrained else None)
 
-
-    # general config
-    dir_output = "results/test/"
-    dir_model  = dir_output + "model.weights/"
-    path_log   = dir_output + "log.txt"
+    if os.name == 'nt':  # windows
+        # general config
+        dir_output = "results/test/"
+        dir_model = dir_output + "model.weights/"
+        path_log = dir_output + "log.txt"
+    else:
+        dir_output = "/output"
+        dir_model = dir_output
+        path_log = dir_output
 
     # embeddings
     dim_word = 300
