@@ -1,6 +1,8 @@
 from model.data_utils import CoNLLDataset
 from model.ner_model import NERModel
-from model.config import Config
+from model.config import Config, os_type
+
+import os
 
 
 def main():
@@ -23,13 +25,13 @@ def main():
     # train model
     model.train(train, dev)
 
-import os
 
 if __name__ == "__main__":
-    
-    print('current working dir [{0}]'.format(os.getcwd()))
-    w_d = os.path.dirname(os.path.abspath(__file__))
-    print('change wording dir to [{0}]'.format(w_d))
-    os.chdir(w_d)
+
+    if os_type == "tinymind":
+        print('current working dir [{0}]'.format(os.getcwd()))
+        w_d = os.path.dirname(os.path.abspath(__file__))
+        print('change wording dir to [{0}]'.format(w_d))
+        os.chdir(w_d)
 
     main()

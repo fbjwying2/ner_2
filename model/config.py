@@ -5,6 +5,7 @@ from .general_utils import get_logger
 from .data_utils import get_trimmed_glove_vectors, load_vocab, \
         get_processing_word
 
+os_type = "tinymind"
 
 class Config():
     def __init__(self, load=True):
@@ -54,38 +55,22 @@ class Config():
         self.embeddings = (get_trimmed_glove_vectors(self.filename_trimmed)
                 if self.use_pretrained else None)
 
-    if os.name == 'nt':  # windows
+    if "tinymind" == os_type:
+        dir_output = "/output"
+        dir_model = dir_output
+        path_log = dir_output
+    else:
         # general config
         dir_output = "results/test/"
         dir_model = dir_output + "model.weights/"
         path_log = dir_output + "log.txt"
-    else:
-        dir_output = "/output"
-        dir_model = dir_output
-        path_log = dir_output
 
     # embeddings
     dim_word = 300
     dim_char = 100
 
     # dataset
-    if os.name == 'nt': # windows
-        # glove files
-        filename_glove = "data/glove.6B/glove.6B.{}d.txt".format(dim_word)
-        # trimmed embeddings (created from glove_filename with build_data.py)
-        filename_trimmed = "data/glove.6B.{}d.trimmed.npz".format(dim_word)
-        use_pretrained = True
-
-
-        filename_train = 'G:/test_data/NLP/词性标注/人民日报语料库2014/result/train.txt'
-        filename_test = 'G:/test_data/NLP/词性标注/人民日报语料库2014/result/test.txt'
-        filename_dev = 'G:/test_data/NLP/词性标注/人民日报语料库2014/result/dev.txt'
-
-        # vocab (created from dataset with build_data.py)
-        filename_words = "data/words.txt"
-        filename_tags = "data/tags.txt"
-        filename_chars = "data/chars.txt"
-    else:
+    if "tinymind" == os_type:
         # glove files
         filename_glove = "/data/HataFeng/data-ner-1998-2014/glove.6B/glove.6B.{}d.txt".format(dim_word)
         # trimmed embeddings (created from glove_filename with build_data.py)
@@ -100,6 +85,22 @@ class Config():
         filename_words = "/data/HataFeng/data-ner-1998-2014/words.txt"
         filename_tags = "/data/HataFeng/data-ner-1998-2014/tags.txt"
         filename_chars = "/data/HataFeng/data-ner-1998-2014/chars.txt"
+    else:
+        # glove files
+        filename_glove = "data/glove.6B/glove.6B.{}d.txt".format(dim_word)
+        # trimmed embeddings (created from glove_filename with build_data.py)
+        filename_trimmed = "data/glove.6B.{}d.trimmed.npz".format(dim_word)
+        use_pretrained = True
+
+        filename_train = 'G:/test_data/NLP/词性标注/人民日报语料库2014/result/train.txt'
+        filename_test = 'G:/test_data/NLP/词性标注/人民日报语料库2014/result/test.txt'
+        filename_dev = 'G:/test_data/NLP/词性标注/人民日报语料库2014/result/dev.txt'
+
+        # vocab (created from dataset with build_data.py)
+        filename_words = "data/words.txt"
+        filename_tags = "data/tags.txt"
+        filename_chars = "data/chars.txt"
+
 
     max_iter = None # if not None, max number of examples in Dataset
 
