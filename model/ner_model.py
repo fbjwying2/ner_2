@@ -286,7 +286,7 @@ class NERModel(BaseModel):
             _, train_loss, summary = self.sess.run(
                     [self.train_op, self.loss, self.merged], feed_dict=fd)
 
-            if i % 100 == 0:
+            if i % 100 or i < 100 == 0:
                 prog.update(i + 1, [("train loss", train_loss)])
 
             # tensorboard

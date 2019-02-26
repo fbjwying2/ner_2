@@ -6,6 +6,7 @@ from .data_utils import get_trimmed_glove_vectors, load_vocab, \
         get_processing_word
 
 os_type = "tinymind"
+#os_type = "windows"
 
 class Config():
     def __init__(self, load=True):

@@ -7,14 +7,14 @@ import tensorflow as tf
 import os
 
 
-def main():
+def main(_):
     # create instance of config
     config = Config()
 
     # build model
     model = NERModel(config)
     model.build()
-    #model.restore_session(config.dir_model)
+    model.restore_session(config.dir_model)
     # model.restore_session("results/crf/model.weights/") # optional, restore weights
     # model.reinitialize_weights("proj")
 
@@ -29,10 +29,11 @@ def main():
 
 
 if __name__ == "__main__":
-    
-    print('current working dir [{0}]'.format(os.getcwd()))
-    w_d = os.path.dirname(os.path.abspath(__file__))
-    print('change wording dir to [{0}]'.format(w_d))
-    os.chdir(w_d)
+
+    if os_type == "tinymind":
+        print('current working dir [{0}]'.format(os.getcwd()))
+        w_d = os.path.dirname(os.path.abspath(__file__))
+        print('change wording dir to [{0}]'.format(w_d))
+        os.chdir(w_d)
 
     tf.app.run()
